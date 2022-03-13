@@ -13,7 +13,7 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ after_fix ]
+    branches: [ after_fix, after_fix_ml ]
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ after_fix ]
