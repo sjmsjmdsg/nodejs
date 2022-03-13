@@ -1,4 +1,5 @@
 const router = require('express').Router
+const ms = require('ms')
 
 module.exports = function s3 (config) {
   if (typeof config.acl !== 'string') {
@@ -45,7 +46,7 @@ module.exports = function s3 (config) {
 
     client.createPresignedPost({
       Bucket: config.bucket,
-      Expires: config.expires,
+      Expires: ms('5 minutes') / 1000,
       Fields: fields,
       Conditions: config.conditions
     }, (err, data) => {
@@ -93,7 +94,7 @@ module.exports = function s3 (config) {
       ACL: config.acl,
       ContentType: type,
       Metadata: metadata,
-      Expires: config.expires
+      Expires: ms('5 minutes') / 1000
     }, (err, data) => {
       if (err) {
         next(err)
@@ -190,7 +191,7 @@ module.exports = function s3 (config) {
       UploadId: uploadId,
       PartNumber: partNumber,
       Body: '',
-      Expires: config.expires
+      Expires: ms('5 minutes') / 1000
     }, (err, url) => {
       if (err) {
         next(err)

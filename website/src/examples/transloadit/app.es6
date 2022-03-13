@@ -99,11 +99,13 @@ function initUppy (opts = {}) {
       companionUrl: 'https://api2.transloadit.com/companion',
       companionAllowedHosts: Transloadit.COMPANION_PATTERN
     })
-    .use(Facebook, {
-      target: Dashboard,
-      companionUrl: COMPANION
-    })
-    .use(Webcam, { target: Dashboard, modes: ['picture'] })
+    if (document.location.hash === '#enable-facebook') {
+      uppy.use(Facebook, {
+        target: Dashboard,
+        companionUrl: COMPANION
+      })
+    }
+    uppy.use(Webcam, { target: Dashboard, modes: ['picture'] })
 
   uppy
     .on('transloadit:result', (stepName, result) => {
